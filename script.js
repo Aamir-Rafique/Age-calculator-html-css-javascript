@@ -1,70 +1,55 @@
 let btnCalAge = document.getElementById("btnCalAge");
-let inpDate = document.getElementsByTagName("input");
+let dateInput = document.querySelector('input[type="date"]');
 let dispResult = document.getElementById("result");
 
-const d = new Date();
-let currDay = d.getDate();
-let currMonthDefault = d.getMonth(); //because it  Extracts the current month (0-11, where 0 = January)
-let currYear = d.getFullYear();
-
-let currMonth = currMonthDefault + 1;
-
-
-let inpYear = 0, inpDay = 0, inpMonth = 0;
-
-btnCalAge.addEventListener("click", () => {
-    calAge();
-});
-
-
-
-//functions:
+btnCalAge.addEventListener("click", calAge);
 
 function calAge() {
-
-    for (let i = 0; i < inpDate.length; i++) {
-        if (inpDate[i].type === "date") {
-            [inpYear, inpMonth, inpDay] = inpDate[i].value.split("-"); // Extracting year, month, and date
-            if (inpDate[i].value) { // Check if a value is selected
-                if (inpYear > currYear) {
-                    alert("Please select a valid date!")
-                }
-                else {
-                    let diffYear = currYear - inpYear;
-                    let diffMonth = currMonth - inpMonth;
-                    let diffDay = currDay - inpDay;
-
-                    let yearsOld = 0;
-                    let monthsOld = 0;
-                    let daysOld = 0;
-
-                    if (diffMonth >= 0) {
-                        yearsOld = diffYear;
-                        monthsOld = diffMonth;
-                    }
-
-                    else if (diffMonth < 0) {
-                        yearsOld = diffYear - 1;
-                        monthsOld = 12 + diffMonth;
-                    }
-
-                    //for days: 
-                    if (diffDay > 0 || diffDay === 0) {
-                        daysOld = diffDay;
-                    }
-                    else if (diffDay < 0) {
-                        daysOld = 30 + diffDay;
-                    }
-                    // let result = currYear - inpYear;
-                    dispResult.innerHTML = "Your age is : " + yearsOld + " years " + monthsOld + " months "+daysOld+ " days";
-                }
-            }
-        }
-        else {
-            console.log("No date selected.");
-        }
+    if (!dateInput.value) {
+        alert("Please select a date!");
+        return;
     }
+
+    let [inpYear, inpMonth, inpDay] = dateInput.value.split("-").map(Number);
+
+    // Get today's date
+    const today = new Date();
+    let currYear = today.getFullYear();
+    let currMonth = today.getMonth() + 1; // getMonth() is 0-indexed
+    let currDay = today.getDate();
+
+    // Prevent future dates
+    if (
+        inpYear > currYear ||
+        (inpYear === currYear && inpMonth > currMonth) ||
+        (inpYear === currYear && inpMonth === currMonth && inpDay > currDay)
+    ) {
+        alert("Please select a valid past date!");
+        return;
+    }
+
+    let yearsOld = currYear - inpYear;
+    let monthsOld = currMonth - inpMonth;
+    let daysOld = currDay - inpDay;
+
+    if (daysOld < 0) {
+        // Borrow days from previous month
+        monthsOld--;
+        // Get days in previous month
+        let prevMonth = currMonth - 1;
+        let prevYear = currYear;
+        if (prevMonth === 0) {
+            prevMonth = 12;
+            prevYear--;
+        }
+        let daysInPrevMonth = new Date(prevYear, prevMonth, 0).getDate();
+        daysOld += daysInPrevMonth;
+    }
+
+    if (monthsOld < 0) {
+        yearsOld--;
+        monthsOld += 12;
+    }
+
+    dispResult.innerHTML = `Your age is: ${yearsOld} years ${monthsOld} months ${daysOld} days`;
 }
-
-
-
