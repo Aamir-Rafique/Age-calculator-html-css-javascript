@@ -45,7 +45,7 @@ function calAge() {
 
                     else if (diffMonth < 0) {
                         yearsOld = diffYear - 1;
-                        monthsOld = 12 + diffMonth;
+                        monthsOld = 11 + diffMonth;
                     }
 
                     //for days: 
