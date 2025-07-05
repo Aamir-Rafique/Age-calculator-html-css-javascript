@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI';
 }
 
 body {
@@ -28,7 +29,7 @@ body>h1 {
     gap: 20px;
     border-radius: 20px;
     border: 3px solid black;
-    background-image: linear-gradient(to right, rgb(143, 244, 143),pink,rgb(250, 187, 187),rgb(237, 212, 164));
+    background-image: linear-gradient(to right, rgb(143, 244, 143), pink, rgb(250, 187, 187), rgb(237, 212, 164));
 }
 
 .container input {
@@ -47,4 +48,22 @@ body>h1 {
 
 .container button:hover {
     background-color: rgb(26, 175, 239);
+}
+
+
+footer {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+    color: #4b5563;
+}
+
+footer p a {
+    text-decoration: none;
+    color: #2563eb;
+}
+
+footer p a:hover {
+    text-decoration: underline;
+    text-decoration: underline;
 }
