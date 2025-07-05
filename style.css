@@ -13,13 +13,13 @@ body {
 }
 
 body>h1 {
-    font-size: 4vmax;
+    font-size: 3vmax;
 }
 
 .container {
     height: auto;
-    width: auto;
-    margin: 30px;
+    width: 25vw;
+    margin-top: 30px;
     padding: 30px;
     background-color: aqua;
     display: flex;
@@ -36,9 +36,8 @@ body>h1 {
 }
 
 .container button {
-    height: 35px;
-    width: 115px;
-    font-size: 15px;
+    padding: 0.7vmax;
+    font-size: 1.3vmax;
     color: white;
     border-radius: 10px;
     border: 1px solid darkblue;
