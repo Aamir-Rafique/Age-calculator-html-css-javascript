@@ -11,7 +11,7 @@
 
     .container {
         height: auto;
-        width: 50vw;
+        width: 60%;
         padding: 30px;
         background-color: aqua;
          border: 2px solid black;
@@ -25,5 +25,7 @@
         font-size: 1.1vmax;
     }
 
-   
+    footer p{
+        font-size: 1.5vmax;
+    }
 }
