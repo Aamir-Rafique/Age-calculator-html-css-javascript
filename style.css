@@ -10,7 +10,7 @@ body {
     align-items: center;
     padding-top: 90px;
     gap: 20px;
-    background-color: #4cf8b08c;
+    background-color: #4cbcf884;
 }
 
 body>h1 {
@@ -54,13 +54,19 @@ nav #logo-img {
     gap: 20px;
     border-radius: 20px;
     border: 3px solid black;
-    background-image: linear-gradient(to right, rgb(143, 244, 143), pink, rgb(250, 187, 187), rgb(237, 212, 164));
+    background-image: linear-gradient(to right, rgb(27, 244, 190),  rgb(43, 231, 112));
 }
 
 .container input {
     font-size: 20px;
+    outline: none;
+    padding: 5px;
 }
 
+input:focus{
+    box-shadow: 20px;
+    box-shadow: #2563eb;
+}
 .container button {
     padding: 0.7vmax;
     font-size: 1.3vmax;

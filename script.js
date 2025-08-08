@@ -1,5 +1,5 @@
 let btnCalAge = document.getElementById("btnCalAge");
-let inpDate = document.getElementsByTagName("input");
+let inpDate = document.querySelectorAll('input[type="date"]');
 let dispResult = document.getElementById("result");
 
 const d = new Date();
@@ -21,48 +21,53 @@ btnCalAge.addEventListener("click", () => {
 //functions:
 
 function calAge() {
-
+    let dateSelected = false;
     for (let i = 0; i < inpDate.length; i++) {
         if (inpDate[i].type === "date") {
-            [inpYear, inpMonth, inpDay] = inpDate[i].value.split("-"); // Extracting year, month, and date
             if (inpDate[i].value) { // Check if a value is selected
-                if (inpYear > currYear) {
-                    alert("Please select a valid date!")
+                dateSelected = true;
+                [inpYear, inpMonth, inpDay] = inpDate[i].value.split("-").map(val => parseInt(val, 10)); // Extracting year, month, and date as numbers
+                if (parseInt(inpYear) > currYear) {
+                    alert("Please select a valid date!");
                 }
                 else {
                     let diffYear = currYear - inpYear;
                     let diffMonth = currMonth - inpMonth;
                     let diffDay = currDay - inpDay;
 
-                    let yearsOld = 0;
-                    let monthsOld = 0;
-                    let daysOld = 0;
+                    let yearsOld = diffYear;
+                    let monthsOld = diffMonth;
+                    let daysOld = diffDay;
 
-                    if (diffMonth >= 0) {
-                        yearsOld = diffYear;
-                        monthsOld = diffMonth;
+                    // Adjust days and months if days are negative
+                    if (daysOld < 0) {
+                        // Borrow days from previous month
+                        let prevMonth = currMonth - 1;
+                        let prevYear = currYear;
+                        if (prevMonth === 0) {
+                            prevMonth = 12;
+                            prevYear -= 1;
+                        }
+                        let daysInPrevMonth = new Date(prevYear, prevMonth, 0).getDate();
+                        daysOld += daysInPrevMonth;
+                        monthsOld -= 1;
                     }
 
-                    else if (diffMonth < 0) {
-                        yearsOld = diffYear - 1;
-                        monthsOld = 11 + diffMonth;
+                    // Adjust months and years if months are negative
+                    if (monthsOld < 0) {
+                        monthsOld += 12;
+                        yearsOld -= 1;
                     }
 
-                    //for days: 
-                    if (diffDay > 0 || diffDay === 0) {
-                        daysOld = diffDay;
-                    }
-                    else if (diffDay < 0) {
-                        daysOld = 30 + diffDay;
-                    }
-                    // let result = currYear - inpYear;
-                    dispResult.innerHTML = "Your age is : " + yearsOld + " years " + monthsOld + " months "+daysOld+ " days";
+                    dispResult.innerHTML = `Your age is : ${yearsOld} years ${monthsOld} months ${daysOld} days`;
                 }
+            } else {
+                console.log("No date selected.");
             }
         }
-        else {
-            console.log("No date selected.");
-        }
+    }
+    if (!dateSelected) {
+        alert("Please select your DOB first!");
     }
 }
 
